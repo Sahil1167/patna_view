@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Metro Animation</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+
+        .metro-line {
+            position: relative;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        .metro-image {
+            width: 20vw;
+            height: auto;
+        }
+
+        .station {
+            position: absolute;
+            text-align: center;
+            display: none;
+        }
+
+        .station img {
+            width: 20vw;
+            height: auto;
+            cursor: pointer;
+        }
+
+        .station-img {
+            aspect-ratio: 4/3;
+            object-fit: cover;
+            border-radius: 1%;
+            width: 10vw;
+        }
+
+        .track-route {
+            position: absolute;
+            top: 53%;
+            width: 100%;
+            height: 0.5vw;
+            background-color: rgb(100, 94, 94);
+            transform: translateY(-50%);
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translate3d(0, 40px, 0);
+            }
+
+            to {
+                transform: translate3d(0, 0, 0);
+                opacity: 1;
+            }
+        }
+
+        .animatedup {
+            animation-duration: 1s;
+            animation-fill-mode: both;
+        }
+
+        .animatedFadeInUp {
+            opacity: 0;
+        }
+
+        .fadeInUp {
+            opacity: 0;
+            animation-name: fadeInUp;
+        }
+
+        .animateddown {
+            -webkit-animation-duration: 1s;
+            animation-duration: 1s;
+            -webkit-animation-fill-mode: both;
+            animation-fill-mode: both;
+        }
+
+        @-webkit-keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                -webkit-transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                -webkit-transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInDown {
+            0% {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fadeInDown {
+            -webkit-animation-name: fadeInDown;
+            animation-name: fadeInDown;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="track-route"></div>
+    <div class="metro-line">
+        <div class="main" style="width: 100%;">
+            <marquee class="marq" width="100%" direction="right"  scrollamount="12">
+                <img src="metro img22.png" alt="Metro" class="metro-image">
+            </marquee>
+        </div>
+        <div class="station fadeInUp animatedFadeInUp animatedup" data-station="Station 1" style="left: 0%;">
+            <img src="vikas bhawan1.png"
+                class="station-img" alt="Station 1">
+            <h3>Viaks Bhawan</h3>
+        </div>
+        <div class="station fadeInDown animateddown" data-station="Station 2" style="left: 0%;">
+            <h3>Ghandi Maidan</h3>
+            <img src="patna junction.png" class="station-img" alt="Station 2">
+        </div>
+        <div class="station fadeInUp animatedFadeInUp animatedup" data-station="Station 3" style="left: 20%;">
+            <img src="science city new.png" alt="Station 3"
+                class="station-img">
+            <h3>Moin Ul Haq</h3>
+        </div>
+        <div class="station fadeInDown animateddown" data-station="Station 4" style="left: 20%;">
+            <h3>Patna Zoo</h3>
+            <img src="pmch university.png"
+                alt="Station 4" class="station-img">
+        </div>
+        <div class="station fadeInUp animatedFadeInUp animatedup" data-station="Station 5" style="left: 40%;">
+            <img src="Rectangle 11.png" alt="Station 5" class="station-img">
+            <h3>Patna Junction</h3>
+        </div>
+        <div class="station fadeInDown animateddown" data-station="Station 6" style="left: 40%;">
+            <h3>University</h3>
+            <img src="sabhyta dwar1.png"
+                alt="Station 6" class="station-img">
+        </div>
+        <div class="station fadeInUp animatedFadeInUp animatedup" data-station="Station 7" style="left: 60%;">
+            <img src="ghandhi maidan.png" class="station-img"
+                alt="Station 7">
+            <h3>University</h3>
+        </div>
+        <div class="station fadeInDown animateddown" data-station="Station 8" style="left: 60%;">
+            <h3>University</h3>
+            <img src="Rectangle 11.png" class="station-img"
+                alt="Station 8">
+        </div>
+        <div class="station fadeInUp animatedFadeInUp animatedup" data-station="Station 9" style="left: 80%;">
+            <img src="https://static.vecteezy.com/system/resources/previews/007/916/515/non_2x/collection-of-zoo-animals-vector.jpg"
+                alt="Station 9">
+            <h3>University</h3>
+        </div>
+        <div class="station fadeInDown animateddown" data-station="Station 10" style="left: 80%;">
+            <h3>University</h3>
+            <img src="museum vidyut bhawan.png"
+                alt="Station 10">
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const stations = document.querySelectorAll(".station");
+            const stationTimes = [1000, 1000, 3000, 3000, 5000, 5000, 7000, 7000, 9000, 9000];
+
+            const animateMetro = () => {
+                stations.forEach((station, index) => {
+                    if (index % 2 === 0) {
+                        station.style.top = '0%';
+                    } else {
+                        station.style.bottom = '0%';
+                    }
+                    setTimeout(() => {
+                        station.style.display = 'block';
+                    }, stationTimes[index]);
+                });
+
+                setTimeout(() => {
+                    stations.forEach(station => {
+                        station.style.display = 'none';
+                    });
+                    animateMetro();
+                }, Math.max(...stationTimes) + 2200);
+            };
+
+            animateMetro();
+        });
+    </script>
+</body>
+
+</html>
